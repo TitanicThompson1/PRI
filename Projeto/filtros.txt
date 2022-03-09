@@ -1,0 +1,6 @@
+Para nomes pessoais:
+	- Beider-Morse Filter
+	- Daitch-Mokotoff Soundex algorithm
+Para as letras:
+	- English Minimal Stem Filter (basico)
+	- Porter Stem Filter: para ingles, rapido

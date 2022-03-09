@@ -1,0 +1,5 @@
+Necessário indexar inteiros?
+Para um inteiro, é necessário criar um field type? Não
+Porque é que não reconhece o IntPointField?
+É suposto fazer filtros mais complexos?
+Podemos adicionar mais estatisticas

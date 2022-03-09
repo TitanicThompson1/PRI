@@ -1,0 +1,46 @@
+Q1 - Musics about friendship
+    q: friendship
+    System A:
+        qf: song_name lyrics
+    System B:
+        qf: song_name^10 lyrics^2
+        pf: song_name
+
+Q2 - Artists from Brooklyn
+    System A:
+        qf: 
+    System B:
+        qf: song_name^5 lyrics^2
+
+Q3 - First albums released in 2000
+    q: ("first album" OR "debut album") AND 2000
+    System A:
+        qf: release_date album_description
+        URL: http://localhost:8983/solr/musics/select?defType=edismax&indent=true&q.op=OR&q=(%22first%20album%22%20%20%22debut%20album%22)%20OR%202000&qf=release_date%20album_description&rows=10
+
+    System B:
+        qf: release_date^10 album_description^2
+        pf: album_description
+        ps: 3
+        URL: http://localhost:8983/solr/musics/select?defType=edismax&indent=true&pf=album_description&ps=3&q.op=OR&q=(%22first%20album%22%20OR%20%22debut%20album%22)%20AND%202000&qf=release_date%5E10%20album_description%5E2
+
+Q4 - New york born artists with albums in the billboard 200 record chart
+    q: "billboard 200" AND "New York"
+    fq: !(artist:"featuring")
+    System A:
+        qf: artist_description album_description
+        URL: http://localhost:8983/solr/#/musics/query?q=%22billboard%20200%22%20AND%20%22New%20York%22&q.op=OR&defType=edismax&indent=true&rows=20&qf=artist_description%20album_description
+
+    System B:
+        qf: artist_description^10 album_description^5
+        URL: http://localhost:8983/solr/#/musics/query?q=%22billboard%20200%22%20AND%20%22New%20York%22&q.op=OR&defType=edismax&indent=true&rows=20&qf=artist_description%5E10%20album_description%5E5
+
+Q5 - Albums that won the Grammy Award for Best R&B Album since the '90s
+    q: "grammy" AND "r&b" AND ("win" OR "won")
+     fq: release_date:[1990-01-01T00:00:00Z TO *]
+    System A:
+        qf: album_description
+        URL: http://localhost:8983/solr/#/musics/query?q=%22grammy%22%20AND%20%22r%26b%22%20AND%20(%22win%22%20OR%20%22won%22)&q.op=OR&defType=edismax&indent=true&qf=album_description&rows=20&fq=release_date:%5B1990-01-01T00:00:00Z%20TO%20*%5D
+    System B:
+        qf: album_description^2
+        URL: http://localhost:8983/solr/#/musics/query?q=%22grammy%22%20AND%20%22r%26b%22&q.op=OR&defType=edismax&indent=true&qf=album_description%5E10&rows=20&fq=release_date:%5B1990-01-01T00:00:00Z%20TO%20*%5D

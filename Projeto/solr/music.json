@@ -1,0 +1,141 @@
+{
+  "add-field-type": [
+    {
+      "name": "descriptiveText",
+      "class": "solr.TextField",
+      "indexAnalyzer": {
+        "tokenizer": {
+          "class": "solr.StandardTokenizerFactory"
+        },
+        "filters": [
+          {
+            "class": "solr.ASCIIFoldingFilterFactory",
+            "preserveOriginal": true
+          },
+          {
+            "class": "solr.StopFilterFactory",
+            "words": "stopwords.txt"
+          },
+          { "class": "solr.LowerCaseFilterFactory" },
+          { "class": "solr.PorterStemFilterFactory" }
+        ]
+      },
+      "queryAnalyzer": {
+        "tokenizer": {
+          "class": "solr.StandardTokenizerFactory"
+        },
+        "filters": [
+          {
+            "class": "solr.ASCIIFoldingFilterFactory",
+            "preserveOriginal": true
+          },
+          { "class": "solr.LowerCaseFilterFactory" },
+          { "class": "solr.PorterStemFilterFactory" }
+        ]
+      }
+    },
+    {
+      "name": "artistName",
+      "class": "solr.TextField",
+      "indexAnalyzer": {
+        "tokenizer": {
+          "class": "solr.StandardTokenizerFactory"
+        },
+        "filters": [
+          {
+            "class": "solr.ASCIIFoldingFilterFactory",
+            "preserveOriginal": true
+          },
+          { "class": "solr.LowerCaseFilterFactory" },
+          { "class": "solr.BeiderMorseFilterFactory" }
+        ]
+      },
+      "queryAnalyzer": {
+        "tokenizer": {
+          "class": "solr.StandardTokenizerFactory"
+        },
+        "filters": [
+          {
+            "class": "solr.ASCIIFoldingFilterFactory",
+            "preserveOriginal": true
+          },
+          { "class": "solr.LowerCaseFilterFactory" },
+          {
+            "class": "solr.SynonymGraphFilterFactory",
+            "expand": false,
+            "synonyms": "aliases.txt"
+          },
+          { "class": "solr.BeiderMorseFilterFactory" }
+        ]
+      }
+    }
+  ],
+  "add-field": [
+    {
+      "name": "song_name",
+      "type": "descriptiveText",
+      "indexed": true
+    },
+    {
+      "name": "lyrics",
+      "type": "descriptiveText",
+      "indexed": true
+    },
+    {
+      "name": "music_date",
+      "type": "pdate",
+      "indexed": true
+    },
+    {
+      "name": "artist_name",
+      "type": "artistName",
+      "indexed": true
+    },
+    {
+      "name": "peakPos",
+      "type": "pint",
+      "indexed": false
+    },
+
+    {
+      "name": "lastPos",
+      "type": "pint",
+      "indexed": false
+    },
+    {
+      "name": "weeks",
+      "type": "pint",
+      "indexed": false
+    },
+    {
+      "name": "music_rank",
+      "type": "pint",
+      "indexed": false
+    },
+    {
+      "name": "album_name",
+      "type": "descriptiveText",
+      "indexed": true
+    },
+    {
+      "name": "full_title",
+      "type": "descriptiveText",
+      "indexed": true
+    },
+    {
+      "name": "release_date",
+      "type": "pdate",
+      "indexed": true
+    },
+    {
+      "name": "album_description",
+      "type": "descriptiveText",
+      "indexed": true
+    },
+    {
+      "name": "artist_description",
+      "type": "descriptiveText",
+      "indexed": true
+    }
+  ]
+}
